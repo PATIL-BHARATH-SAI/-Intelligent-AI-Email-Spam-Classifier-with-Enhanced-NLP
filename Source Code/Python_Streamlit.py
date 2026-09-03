@@ -11,10 +11,22 @@ st.markdown("""<style>
 .ham-badge { background: #dcfce7; color: #166534; border: 1px solid #4ade80; border-radius: 8px; padding: 10px; font-weight: 700; text-align: center; }
 </style>""", unsafe_allow_html=True)
 
-# ponytail: simple NLTK setup, download if missing
-for r in ['punkt', 'punkt_tab', 'stopwords', 'wordnet', 'omw-1.4', 'averaged_perceptron_tagger', 'averaged_perceptron_tagger_eng']:
-    try: nltk.download(r, quiet=True)
-    except: pass
+# Download required NLTK resources if not already present
+REQUIRED_NLTK_PACKAGES = [
+    'punkt',
+    'punkt_tab',
+    'stopwords',
+    'wordnet',
+    'omw-1.4',
+    'averaged_perceptron_tagger',
+    'averaged_perceptron_tagger_eng'
+]
+
+for package in REQUIRED_NLTK_PACKAGES:
+    try:
+        nltk.download(package, quiet=True)
+    except Exception:
+        pass
 
 stop_words, lemmatizer = set(stopwords.words('english')), WordNetLemmatizer()
 tag_map = {'J': wordnet.ADJ, 'V': wordnet.VERB, 'R': wordnet.ADV}

@@ -9,10 +9,22 @@ from sklearn.svm import LinearSVC
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, roc_auc_score
 
-# ponytail: simple NLTK setup, download if missing
-for r in ['punkt', 'punkt_tab', 'stopwords', 'wordnet', 'omw-1.4', 'averaged_perceptron_tagger', 'averaged_perceptron_tagger_eng']:
-    try: nltk.download(r, quiet=True)
-    except: pass
+# Download required NLTK resources if not already present
+REQUIRED_NLTK_PACKAGES = [
+    'punkt',
+    'punkt_tab',
+    'stopwords',
+    'wordnet',
+    'omw-1.4',
+    'averaged_perceptron_tagger',
+    'averaged_perceptron_tagger_eng'
+]
+
+for package in REQUIRED_NLTK_PACKAGES:
+    try:
+        nltk.download(package, quiet=True)
+    except Exception:
+        pass
 
 stop_words, lemmatizer = set(stopwords.words('english')), WordNetLemmatizer()
 tag_map = {'J': wordnet.ADJ, 'V': wordnet.VERB, 'R': wordnet.ADV}
